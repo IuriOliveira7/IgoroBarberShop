@@ -1,0 +1,127 @@
+.main{
+    background: #161D25;
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+    .logo {
+        text-align: center;
+    }
+
+    .logo img{
+        width: 257px;
+    }
+
+    .button{
+        text-align: center;
+        margin-top: 69px;
+
+        .button_agendar{
+            border: none;
+
+            color: #FFF;
+            font-size: 20px;
+            font-weight: bold;
+
+            background: #12AAEB;
+            padding: 0.5rem;
+            width: 318px;
+            height: 68px;
+            border-radius: 12px;
+
+            cursor: pointer;
+        }
+
+        :hover{
+            background: #0d91ca;
+        }
+
+        @media screen and (max-width: 320px) {
+
+            .button_agendar{
+                width: 280px;
+            }
+            
+        }
+
+    }
+
+}
+
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px); /* Ajuste o valor de acordo com o desfoque desejado */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #FFF;
+
+    .icon_fechar{
+        display: flex;
+        justify-content: end;
+        font-size: 1.5rem;
+        
+
+        i {
+            transition: transform .2s;
+
+            &:hover{
+                transform: scale(1.2);
+                cursor: pointer;
+            }
+        }
+
+    }
+  
+    &.modal-visible {
+      display: none;
+    }
+  
+    .modal-content {
+      background: #161D25;
+      padding: 20px;
+      border-radius: 20px;
+      text-align: center;
+      
+  
+      input {
+        width: 90%;
+        height: 30px;
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+        border-radius: 12px;
+        background: #41455D;
+        border: 0 none;
+        outline: 0;
+        padding: 0.5rem;
+        color: #FFF;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+  
+      button {
+        border: none;
+
+        color: #FFF;
+        font-size: 20px;
+        font-weight: bold;
+
+        background: #12AAEB;
+        width: 145px;
+        height: 46px;
+        border-radius: 12px;
+
+        cursor: pointer;
+      }
+    }
+}

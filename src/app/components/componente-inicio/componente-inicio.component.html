@@ -1,0 +1,20 @@
+<div class="main">
+    <div class="logo">
+        <img src="../../../assets/img/logo.png" alt="">
+    </div>
+    <div class="button">
+        <button class="button_agendar" (click)="abrirModal()">Agendar</button>
+    </div>
+</div>
+
+<div class="modal" *ngIf="modalAberto">
+    <div class="modal-content">
+    <div class="icon_fechar" >
+        <i (click)="fecharModal()" class='bx bx-x'></i>
+    </div>
+      <h2>Qual seu nome?</h2>
+      <input type="text" [(ngModel)]="clienteNome">
+      <button (click)="entrar()">Entrar</button>
+      <!-- <button (click)="fecharModal()">Fechar</button> -->
+    </div>
+</div>
