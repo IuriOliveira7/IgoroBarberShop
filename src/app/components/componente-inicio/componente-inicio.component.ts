@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/service/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 
 
@@ -14,7 +13,7 @@ export class ComponenteInicioComponent {
   clienteNome: string = '';
   modalAberto: boolean = false;
 
-  constructor(private router: Router, private auth: AuthService, private toastr: ToastrService) {}
+  constructor(private router: Router, private toastr: ToastrService) {}
 
   abrirModal() {
     this.modalAberto = true;
@@ -42,61 +41,59 @@ export class ComponenteInicioComponent {
 
   // SISTEMA DE LOGIN
 
-  email: string = '';
-  senha: string = '';
-  confirmarsenha: string = '';
+  // email: string = '';
+  // senha: string = '';
+  // confirmarsenha: string = '';
 
 
-  login () {
-    if(this.email == '' && this.senha == '') {
-      // alert('Campo de email vazio!');
-      this.toastr.error('E-mail e senha não podem ser vazios.');
-      return;
-    }
+  // login () {
+  //   if(this.email == '' && this.senha == '') {
+  //     this.toastr.error('E-mail e senha não podem ser vazios.');
+  //     return;
+  //   }
 
-    if(this.email == '') {
-      // alert('Campo de email vazio!');
-      this.toastr.error('E-mail não podem ser vazios.');
-      return;
-    }
+  //   if(this.email == '') {
+  //     this.toastr.error('E-mail não podem ser vazios.');
+  //     return;
+  //   }
 
-    if(this.senha == '') {
-      this.toastr.error('Senha não podem ser vazios.');
-      return;
-    }
+  //   if(this.senha == '') {
+  //     this.toastr.error('Senha não podem ser vazios.');
+  //     return;
+  //   }
 
-    this.auth.login(this.email, this.senha);
-    this.email = '';
-    this.senha = '';
-  }
+  //   this.auth.login(this.email, this.senha);
+  //   this.email = '';
+  //   this.senha = '';
+  // }
 
-  register () {
-    if(this.email == '') {
-      this.toastr.error('Campo de email vazio!');
-      return;
-    }
+  // register () {
+  //   if(this.email == '') {
+  //     this.toastr.error('Campo de email vazio!');
+  //     return;
+  //   }
 
-    if(this.senha == '') {
-      this.toastr.error('Campo de senha vazio!');
-      return;
-    } else if (this.senha.length < 6) {
-      this.toastr.error('A senha deve ter pelo menos 6 caracteres.');
-      return;
-    }
+  //   if(this.senha == '') {
+  //     this.toastr.error('Campo de senha vazio!');
+  //     return;
+  //   } else if (this.senha.length < 6) {
+  //     this.toastr.error('A senha deve ter pelo menos 6 caracteres.');
+  //     return;
+  //   }
 
-    if(this.confirmarsenha == '') {
-      this.toastr.error('Campo Confirmar senha vazio!');
-      return;
-    }
+  //   if(this.confirmarsenha == '') {
+  //     this.toastr.error('Campo Confirmar senha vazio!');
+  //     return;
+  //   }
 
-    if (this.senha !== this.confirmarsenha) {
-      this.toastr.error('As senhas não coincidem. Tente novamente.');
-      return;
-    }
+  //   if (this.senha !== this.confirmarsenha) {
+  //     this.toastr.error('As senhas não coincidem. Tente novamente.');
+  //     return;
+  //   }
 
-    this.auth.register(this.email, this.senha);
-    this.email = '';
-    this.senha = '';
-    this.confirmarsenha = '';
-  }
+  //   this.auth.register(this.email, this.senha);
+  //   this.email = '';
+  //   this.senha = '';
+  //   this.confirmarsenha = '';
+  // }
 }

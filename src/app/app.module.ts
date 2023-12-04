@@ -1,6 +1,5 @@
+
 import { ToastrModule } from 'ngx-toastr';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AngularFireModule } from '@angular/fire/compat';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -11,7 +10,6 @@ import { ComponenteInicioComponent } from './components/componente-inicio/compon
 import { HomeComponent } from './pages/home/home.component';
 import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { ConteudoHomeComponent } from './components/conteudo-home/conteudo-home.component';
-import { environment } from './environments/environments';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PageInicioComponent } from './pages/page-inicio/page-inicio.component';
 
@@ -22,15 +20,13 @@ import { PageInicioComponent } from './pages/page-inicio/page-inicio.component';
     HomeComponent,
     TopBarComponent,
     ConteudoHomeComponent,
-    ComponenteInicioComponent,
+    ComponenteInicioComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule,
     ToastrModule.forRoot(),
   ],
   providers: [],
