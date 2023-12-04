@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap');
+
 .main {
     background: #161D25;
     width: 100%;
     min-height: max-content;
 
-    .main_login {
+    .main_agendar {
         height: 100vh;
         display: grid;
         justify-content: center;
@@ -54,6 +56,219 @@
         }
     }
 
+}
+
+.main_login {
+
+    .login {
+        height: 100vh;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+
+        .logo {
+            text-align: center;
+            margin-bottom: 5rem;
+
+            img {
+                width: 257px;
+            }
+        }
+
+        .inputs {
+            width: 100%;
+
+            .input_senha,
+            .input_user {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+
+            input {
+                width: 100%;
+                height: 45px;
+                margin-bottom: 1rem;
+                margin-top: 1rem;
+                border-radius: 12px;
+                background: #41455D;
+                border: 0 none;
+                outline: 0;
+                padding: 0.5rem;
+                color: #FFF;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+        }
+
+        .button {
+            text-align: center;
+            margin-top: 25px;
+
+            .button_agendar {
+                border: none;
+
+                color: #FFF;
+                font-size: 20px;
+                font-weight: bold;
+
+                background: #12AAEB;
+                padding: 0.5rem;
+                width: 318px;
+                height: 68px;
+                border-radius: 12px;
+
+                cursor: pointer;
+            }
+
+            :hover {
+                background: #0d91ca;
+            }
+
+            @media screen and (max-width: 320px) {
+
+                .button_agendar {
+                    width: 280px;
+                }
+
+            }
+
+        }
+
+        .recuperacao_cadastro {
+            display: flex;
+            justify-content: space-between;
+
+            .recuperacao {
+                cursor: pointer;
+
+                p {
+                    margin-top: 0.5rem;
+                    font-family: 'Inter';
+                    color: #fff;
+                    font-size: 10px;
+                }
+            }
+
+            .cadastro {
+                cursor: pointer;
+
+                p {
+                    margin-top: 0.5rem;
+                    font-family: 'Inter';
+                    color: #fff;
+                    font-size: 10px;
+
+                    span {
+                        color: #0d91ca;
+                    }
+                }
+
+            }
+        }
+    }
+
+}
+
+.main_registro {
+    .registro {
+        height: 100vh;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+
+        .titulo {
+            text-align: center;
+            margin-bottom: 1rem;
+
+            h2 {
+                font-family: 'Inter';
+                color: #fff;
+                font-size: 2.5rem;
+            }
+        }
+
+        .inputs {
+            width: 100%;
+
+            .input_senha,
+            .input_cpf,
+            .input_email,
+            .input_telefone,
+            .input_user {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+
+            input {
+                width: 100%;
+                height: 45px;
+                margin-bottom: 1rem;
+                margin-top: 1rem;
+                border-radius: 12px;
+                background: #41455D;
+                border: 0 none;
+                outline: 0;
+                padding: 0.5rem;
+                color: #FFF;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+        }
+
+        .button {
+            text-align: center;
+            margin-top: 25px;
+
+            .button_agendar {
+                border: none;
+
+                color: #FFF;
+                font-size: 20px;
+                font-weight: bold;
+
+                background: #12AAEB;
+                padding: 0.5rem;
+                width: 318px;
+                height: 68px;
+                border-radius: 12px;
+
+                cursor: pointer;
+            }
+
+            :hover {
+                background: #0d91ca;
+            }
+
+            @media screen and (max-width: 320px) {
+
+                .button_agendar {
+                    width: 280px;
+                }
+
+            }
+
+        }
+
+        .tenho_conta {
+            display: flex;
+            justify-content: space-between;
+
+            .conta_login {
+                cursor: pointer;
+
+                p {
+                    margin-top: 0.5rem;
+                    font-family: 'Inter';
+                    color: #fff;
+                    font-size: 10px;
+                }
+            }
+        }
+    }
 }
 
 

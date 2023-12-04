@@ -1,10 +1,64 @@
-<div class="main">
-    <div class="main_login">
+<div class="main" hidden>
+    <div class="main_agendar">
         <div class="logo">
             <img src="../../../assets/img/logo.png" alt="">
         </div>
         <div class="button">
             <button class="button_agendar" (click)="abrirModal()">Agendar</button>
+        </div>
+    </div>
+</div>
+
+<div class="main_login" [hidden]="!exibirLogin">
+    <div class="login">
+        <div class="logo">
+            <img src="../../../assets/img/logo.png" alt="">
+        </div>
+        <div class="inputs">
+            <div class="input_user">
+                <input type="text" name="email" placeholder="E-mail" [(ngModel)]="email">
+            </div>
+            <div class="input_senha">
+                <input type="password" name="senha" placeholder="Senha" [(ngModel)]="senha">
+            </div>
+        </div>
+        <div class="button">
+            <button class="button_agendar" (click)="login()">Entrar</button>
+        </div>
+        <div class="recuperacao_cadastro">
+            <div class="recuperacao">
+                <p>Esqueceu a senha?</p>
+            </div>
+            <div class="cadastro">
+                <p (click)="alternarDivs()">Não tem uma conta?<span> Cadastre-se aqui</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main_registro" [hidden]="exibirLogin">
+    <div class="registro">
+        <div class="titulo">
+            <h2>Cadastrar</h2>
+        </div>
+        <div class="inputs">
+            <div class="input_user">
+                <input type="text" name="email" placeholder="E-mail" [(ngModel)]="email">
+            </div>
+            <div class="input_senha">
+                <input type="password" name="senha" placeholder="Senha" [(ngModel)]="senha">
+            </div>
+            <div class="input_cpf">
+                <input type="password" name="senha" placeholder="Senha" [(ngModel)]="confirmarsenha">
+            </div>
+        </div>
+        <div class="button">
+            <button class="button_agendar" (click)="register()">Cadastrar</button>
+        </div>
+        <div class="tenho_conta">
+            <div class="conta_login">
+                <p (click)="alternarDivs()">Já tenho conta</p>
+            </div>
         </div>
     </div>
 </div>
