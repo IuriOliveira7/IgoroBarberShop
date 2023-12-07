@@ -11,7 +11,6 @@ import { TopBarComponent } from './components/top-bar/top-bar.component';
 import { ConteudoHomeComponent } from './components/conteudo-home/conteudo-home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PageInicioComponent } from './pages/page-inicio/page-inicio.component';
-import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -28,6 +27,7 @@ import { environment } from 'src/environments/environment';
     AppRoutingModule,
     FormsModule,
     ToastrModule.forRoot(),
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
