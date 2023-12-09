@@ -16,14 +16,14 @@
         </div>
         <div class="inputs">
             <div class="input_user">
-                <input type="text" name="email" placeholder="E-mail">
+                <input type="text" name="usuario" placeholder="Usuário">
             </div>
             <div class="input_senha">
                 <input type="password" name="senha" placeholder="Senha">
             </div>
         </div>
         <div class="button">
-            <button class="button_agendar">Entrar</button>
+            <button class="button_agendar" (click)="entrar()">Entrar</button>
         </div>
         <div class="recuperacao_cadastro">
             <div class="recuperacao">
@@ -43,13 +43,16 @@
         </div>
         <div class="inputs">
             <div class="input_user">
-                <input type="text" name="email" placeholder="E-mail">
+                <input type="text" name="usuario" placeholder="Nome/Sobrenome">
+            </div>
+            <div class="input_telefone">
+                <input type="text" name="telefone" placeholder="Telefone">
             </div>
             <div class="input_senha">
                 <input type="password" name="senha" placeholder="Senha">
             </div>
-            <div class="input_cpf">
-                <input type="password" name="senha" placeholder="Senha">
+            <div class="input_confirmasenha">
+                <input type="password" name="confirmasenh" placeholder="Confirmar Senha">
             </div>
         </div>
         <div class="button">
