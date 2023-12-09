@@ -1,4 +1,5 @@
 @import 'ngx-toastr/toastr';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap');
 
 *{
     margin: 0;
@@ -11,7 +12,8 @@ body {
 
 .toast-container .ngx-toastr {
     box-shadow: none;
-
+    font-family: 'Inter';
+    
     &:hover {
         box-shadow: none;
     }

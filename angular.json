@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "IgoroBarberShop:build:production"
+              "buildTarget": "IgoroBarberShop:build:production"
             },
             "development": {
-              "browserTarget": "IgoroBarberShop:build:development"
+              "buildTarget": "IgoroBarberShop:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "IgoroBarberShop:build"
+            "buildTarget": "IgoroBarberShop:build"
           }
         },
         "test": {

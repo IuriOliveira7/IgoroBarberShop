@@ -12,6 +12,14 @@ import { ConteudoHomeComponent } from './components/conteudo-home/conteudo-home.
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PageInicioComponent } from './pages/page-inicio/page-inicio.component';
 
+
+import { AngularFireModule } from "@angular/fire/compat";
+import { AngularFireAuthModule } from "@angular/fire/compat/auth";
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { environment } from 'src/environments/environment';
+import { AuthService } from './service/auth/auth.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,9 +35,12 @@ import { PageInicioComponent } from './pages/page-inicio/page-inicio.component';
     AppRoutingModule,
     FormsModule,
     ToastrModule.forRoot(),
-    
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFireStorageModule,
+    AngularFirestoreModule,
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
