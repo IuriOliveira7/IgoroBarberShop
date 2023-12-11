@@ -9,7 +9,8 @@
     </div>
 </div>
 
-<div class="main_login" [hidden]="!exibirLogin">
+<!-- [hidden]="!exibirLogin" -->
+<div class="main_login"  [hidden]="!exibirLogin">
     <div class="login">
         <div class="logo">
             <img src="../../../assets/img/logo.png" alt="">
@@ -36,7 +37,8 @@
     </div>
 </div>
 
-<div class="main_registro" [hidden]="exibirLogin">
+<!-- [hidden]="exibirLogin" -->
+<div class="main_registro" [hidden]="exibirLogin || exibirCheck">
     <div class="registro">
         <div class="titulo">
             <h2>Cadastrar</h2>
@@ -59,7 +61,10 @@
             </div>
           </div>
           <div class="button">
-            <button class="button_agendar" (click)="cadastrar()">Cadastrar</button>
+            <button class="button_agendar" (click)="cadastrar()">
+              <span [hidden]="carregando">Cadastrar</span>
+              <app-loader #loader *ngIf="carregando"></app-loader>
+            </button>
           </div>
         <div class="tenho_conta">
             <div class="conta_login">
@@ -67,6 +72,21 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="check_cadastro" *ngIf="exibirCheck" >
+  <div class="icon_check">
+    <img src="../../../assets/img/icon/icon_check.svg" alt="">
+  </div>
+  <div class="titulo_check">
+    <h3>Cadastro Realizado</h3>
+  </div>
+  <div class="texto_check">
+    <p>Seu cadastro foi realizado com sucesso e já pode realizar o login.</p>
+  </div>
+  <div class="button">
+    <button class="button_agendar" (click)="voltarParaLogin()">OK</button>
+  </div>
 </div>
 
 <div class="modal" *ngIf="modalAberto">

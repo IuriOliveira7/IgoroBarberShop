@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
+import { Observable, of, switchMap } from 'rxjs';
 import { UserService } from '../user/user.service';
 
 
@@ -43,5 +43,19 @@ export class AuthService {
   // Método para obter o estado de autenticação atual
   getAuthState(): Observable<any> {
     return this.auth.authState;
+  }
+
+  getUserData(): Observable<any> {
+    return this.auth.authState.pipe(
+      switchMap(user => {
+        if (user) {
+          // Retorna um observable com os dados do usuário a partir do Firestore
+          return this.firestore.collection('users').doc(user.uid).valueChanges();
+        } else {
+          // Retorna um observable vazio se o usuário não estiver autenticado
+          return of(null);
+        }
+      })
+    );
   }
 }

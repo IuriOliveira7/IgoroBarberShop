@@ -19,6 +19,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './service/auth/auth.service';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { AuthService } from './service/auth/auth.service';
     PageInicioComponent,
     HomeComponent,
     TopBarComponent,
+    LoaderComponent,
     ConteudoHomeComponent,
     ComponenteInicioComponent
   ],
