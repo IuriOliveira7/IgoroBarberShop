@@ -173,11 +173,12 @@
 
 .main_registro {
     .registro {
-        height: 100vh;
+        min-height: 100vh;
         display: grid;
         justify-content: center;
         align-items: center;
         align-content: center;
+        padding: 2rem;
 
         .titulo {
             text-align: center;
@@ -193,6 +194,7 @@
         .inputs {
             width: 100%;
 
+            .input_foto,
             .input_senha,
             .input_confirmasenha,
             .input_email,
@@ -216,6 +218,55 @@
                 color: #FFF;
                 font-family: Arial, Helvetica, sans-serif;
             }
+
+            .input_foto {
+                width: 100%;
+                height: 10rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .image-preview {
+                    width: 9rem;
+                    height: 9rem;
+                    border-radius: 50%;
+                    background-color: #D9D9D9;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    .icon_preview {
+                        width: 5rem;
+                        // height: 3rem;
+                        object-fit: none;
+                    }
+
+                    img {
+                        width: 9rem;
+                        height: 9rem;
+                        object-fit: cover;
+                        border-radius: 50%;
+                    }
+                }
+
+                .image-edit {
+                    width: 2.5rem;
+                    height: 2.5rem;
+                    border-radius: 50%;
+                    background-color: #12AAEB;
+                    position: absolute;
+                    margin-left: 6rem;
+                    margin-bottom: -6rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    img {
+                        width: 2rem;
+                    }
+                }
+            }
+
 
         }
 
@@ -270,33 +321,33 @@
         }
     }
 }
- 
-.check_cadastro{
+
+.check_cadastro {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 
-    .icon_check{
+    .icon_check {
         img {
             width: 135px;
             margin-bottom: 1rem;
         }
     }
 
-    .titulo_check{
+    .titulo_check {
         font-family: "Inter";
         color: #fff;
         font-size: 25px;
         text-align: center;
     }
 
-    .texto_check{
+    .texto_check {
         width: 14rem;
         margin-top: 1rem;
 
-        p{
+        p {
             color: #FFF;
             text-align: center;
             font-family: sans-serif;
@@ -339,53 +390,37 @@
     }
 }
 
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
-    /* Ajuste o valor de acordo com o desfoque desejado */
+.main_redefinir_senha {
+    height: 100vh;
     display: flex;
-    align-items: center;
     justify-content: center;
-    z-index: 1000;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #FFF;
+    align-items: center;
+    flex-direction: column;
 
-    .icon_fechar {
+    .icon_redefinir{
         display: flex;
-        justify-content: flex-end;
-        font-size: 1.5rem;
-
-
-        i {
-            transition: transform .2s;
-
-            &:hover {
-                transform: scale(1.2);
-                cursor: pointer;
-            }
-        }
-
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 2rem;
     }
 
-    &.modal-visible {
-        display: none;
-    }
-
-    .modal-content {
-        background: #161D25;
-        padding: 20px;
-        border-radius: 20px;
+    .titulo_redefinir{
+        font-family: "Inter";
+        color: #fff;
+        font-size: 25px;
         text-align: center;
+        margin-bottom: 1.5rem;
+    }
 
+
+    .input_email_redefinir {
+        width: 100%;
+        display: flex;
+        justify-content: center;
 
         input {
-            width: 90%;
-            height: 30px;
+            width: 100%;
+            height: 45px;
             margin-bottom: 1rem;
             margin-top: 1rem;
             border-radius: 12px;
@@ -396,8 +431,15 @@
             color: #FFF;
             font-family: Arial, Helvetica, sans-serif;
         }
+    }
 
-        button {
+
+
+    .button {
+        text-align: center;
+        margin-top: 25px;
+
+        .button_agendar {
             border: none;
 
             color: #FFF;
@@ -405,11 +447,26 @@
             font-weight: bold;
 
             background: #12AAEB;
-            width: 145px;
-            height: 46px;
+            padding: 0.5rem;
+            width: 318px;
+            height: 68px;
             border-radius: 12px;
 
             cursor: pointer;
         }
+
+        :hover {
+            background: #0d91ca;
+        }
+
+        @media screen and (max-width: 320px) {
+
+            .button_agendar {
+                width: 280px;
+            }
+
+        }
+
     }
 }
+

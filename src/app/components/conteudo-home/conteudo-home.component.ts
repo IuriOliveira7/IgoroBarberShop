@@ -13,12 +13,11 @@ export class ConteudoHomeComponent {
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    // Subscreve-se para receber as informações do usuário
     this.authService.getUserData().subscribe(user => {
       if (user) {
         this.userName = user.name;
-        // console.log('name:', this.userName)
       }
     });
   }
+
 }
