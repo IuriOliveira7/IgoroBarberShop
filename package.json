@@ -22,6 +22,8 @@
     "@angular/router": "^17.0.6",
     "@types/firebase": "^3.2.1",
     "angularfire2": "^5.4.2",
+    "bcryptjs": "^2.4.3",
+    "crypto-browserify": "^3.12.0",
     "firebase": "^10.7.1",
     "material-icons": "^1.13.12",
     "ngx-toastr": "^18.0.0",
@@ -30,9 +32,11 @@
     "zone.js": "~0.14.2"
   },
   "devDependencies": {
+    "@angular-builders/custom-webpack": "^17.0.0",
     "@angular-devkit/build-angular": "^17.0.6",
     "@angular/cli": "^17.0.6",
     "@angular/compiler-cli": "^17.0.6",
+    "@types/bcryptjs": "^2.4.6",
     "@types/jasmine": "~4.3.0",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",

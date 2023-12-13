@@ -10,7 +10,9 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 export class ConteudoHomeComponent {
   userName: string | undefined;
 
-  constructor(private authService: AuthService) { }
+
+  constructor(private authService: AuthService) 
+  {}
 
   ngOnInit(): void {
     this.authService.getUserData().subscribe(user => {
@@ -19,5 +21,4 @@ export class ConteudoHomeComponent {
       }
     });
   }
-
 }

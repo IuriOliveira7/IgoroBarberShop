@@ -87,6 +87,7 @@ export class ComponenteInicioComponent {
 
   // LOGIN/CADASTRO
 
+  novasenha: string = '';
   email: string = '';
   senha: string = '';
   usuario: string = '';
@@ -101,7 +102,9 @@ export class ComponenteInicioComponent {
         this.router.navigate(['/home']);
       })
       .catch((error) => {
-        if (this.email == '') {
+        if (error.message === 'Senha incorreta') {
+          this.toastr.error('Senha incorreta. Por favor, tente novamente.');
+        } else if (this.email == '') {
           this.toastr.error('Campo e-mail vazio');
         } else if (this.senha == '') {
           this.toastr.error('Campo senha vazio');
@@ -111,8 +114,68 @@ export class ComponenteInicioComponent {
       });
   }
 
+  redefinirsenha(): void {
+    this.carregando = true;
+
+    // Verifica se todos os campos estão preenchidos
+    if (this.email == '') {
+      this.toastr.error('Campo e-mail vazio');
+      this.carregando = false;
+      return;
+    } else if (this.novasenha == '') {
+      this.toastr.error('Campo nova senha vazio');
+      this.carregando = false;
+      return;
+    } else if (this.confirmasenha == '') {
+      this.toastr.error('Campo confirmar senha vazio');
+      this.carregando = false;
+      return;
+    } else if (this.novasenha != this.confirmasenha) {
+      this.toastr.error('As senhas são diferentes');
+      this.carregando = false;
+      return;
+    }
+
+    this.authService.changePassword(this.email, this.novasenha, this.confirmasenha)
+      .then((result) => {
+        setTimeout(() => {
+          this.carregando = false;
+          this.mostrarCheckRedefinicao();
+        }, 2000);
+      })
+      .catch((error) => {
+      });
+  }
+
   cadastrar(): void {
     this.carregando = true;
+
+    // Verifica se todos os campos estão preenchidos
+    if (this.fotoSelecionada == null) {
+      this.toastr.error('Campo foto vazio');
+      this.carregando = false;
+      return;
+    } else if (this.usuario == '') {
+      this.toastr.error('Campo nome vazio');
+      this.carregando = false;
+      return;
+    } else if (this.telefone == '') {
+      this.toastr.error('Campo telefone vazio');
+      this.carregando = false;
+      return;
+    } else if (this.email == '') {
+      this.toastr.error('Campo e-mail vazio');
+      this.carregando = false;
+      return;
+    } else if (this.senha == '') {
+      this.toastr.error('Campo senha vazio');
+      this.carregando = false;
+      return;
+    } else if (this.confirmasenha == '') {
+      this.toastr.error('Campo confirmar senha vazio');
+      this.carregando = false;
+      return;
+    }
 
     // Verifica se uma foto foi selecionada
     if (this.fotoSelecionada) {
@@ -126,38 +189,13 @@ export class ComponenteInicioComponent {
         })
         .catch((error) => {
           // Tratamento de erros
-          if (this.usuario == '') {
-            this.toastr.error('Campo nome vazio');
-          } else if (this.telefone == '') {
-            this.toastr.error('Campo telefone vazio');
-          } else if (this.email == '') {
-            this.toastr.error('Campo e-mail vazio');
-          } else if (this.senha == '') {
-            this.toastr.error('Campo senha vazio');
-          } else if (this.confirmasenha == '') {
-            this.toastr.error('Campo confirmar senha vazio');
-          } else {
+          if (error.message === 'Senha incorreta') { 
             this.toastr.error('Erro durante o cadastro. Por favor, tente novamente.');
           }
         });
+        
     }
   }
-
-  // Método para chamar a redefinição de senha
-  resetPassword(email: string): void {
-    this.carregando = true;
-    this.authService.resetPassword(email)
-      .then(() => {
-        setTimeout(() => {
-          this.carregando = false;
-          this.mostrarCheckRedefinicao();
-        }, 2000);
-      })
-      .catch((error) => {
-        this.toastr.error('Erro ao enviar e-mail de redefinição de senha!');
-      });
-  }
-
 
   onFileSelected_cadastro(event: any): void {
     const file = event.target.files[0];

@@ -1,86 +1,157 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable, finalize, of, switchMap } from 'rxjs';
-import { UserService } from '../user/user.service';
+import { Observable, catchError, finalize, from, map, of, switchMap, throwError } from 'rxjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import * as bcrypt from 'bcryptjs';
 
+interface UserData {
+  uid: string;
+  name: string;
+  photoURL: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  private userId: string = '';
+
   constructor(
-    private auth: AngularFireAuth,
     private firestore: AngularFirestore,
-    private usuarioService: UserService,
     private storage: AngularFireStorage
-  ) {}
-  
-  // Método para registrar um novo usuário com a opção de cadastrar foto
-  register(email: string, password: string, name: string, phone: string, photoURL: File): Promise<any> {
-    return this.auth.createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        // Verificar se o usuário não é nulo antes de acessar propriedades
-        if (user) {
-          // Realizar o upload da foto para o armazenamento (Firebase Storage)
-          const filePath = `userPhotos/${user.uid}`;
-          const storageRef = this.storage.ref(filePath);
-          const uploadTask = this.storage.upload(filePath, photoURL);
-  
-          // Obter a URL da foto após o upload ser concluído
-          return uploadTask.snapshotChanges().pipe(
-            finalize(() => {
-              storageRef.getDownloadURL().subscribe(downloadURL => {
-                // Atualizar os dados do usuário no Firestore com a URL da foto
-                this.firestore.collection('users').doc(user.uid).set({
-                  name: name,
-                  phone: phone,
-                  photoURL: downloadURL,  // Adicionando a URL da foto
-                });
+  ) {
+    const storedUserSessionData = localStorage.getItem('userSessionData');
+    if (storedUserSessionData) {
+      const { userId, ...userData } = JSON.parse(storedUserSessionData);
+      this.setUserId(userId);
+    }
+  }
+
+  async register(email: string, password: string, name: string, phone: string, photoURL: File): Promise<any> {
+    // Adicione o usuário ao Firestore com a senha criptografada
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    return this.firestore.collection('users').add({
+      email: email,
+      name: name,
+      phone: phone,
+      hashedPassword: hashedPassword,
+    })
+      .then((docRef) => {
+        const userId = docRef.id;
+
+        // Realize o upload da foto para o armazenamento (Firebase Storage)
+        const filePath = `userPhotos/${userId}`;
+        const storageRef = this.storage.ref(filePath);
+        const uploadTask = this.storage.upload(filePath, photoURL);
+
+        return uploadTask.snapshotChanges().pipe(
+          finalize(() => {
+            storageRef.getDownloadURL().subscribe(downloadURL => {
+              // Atualizar o documento do usuário no Firestore com a URL da foto
+              this.firestore.collection('users').doc(userId).update({
+                photoURL: downloadURL,  // Adicionando a URL da foto
               });
-            })
-          ).toPromise();
+            });
+          })
+        ).toPromise();
+      });
+  }
+
+  setUserId(userId: string): void {
+    this.userId = userId;
+  }
+
+  async login(email: string, password: string): Promise<any> {
+    return this.firestore.collection('users', ref => ref.where('email', '==', email).limit(1))
+      .get()
+      .toPromise()
+      .then(async querySnapshot => {
+        if (querySnapshot && querySnapshot.size === 1) {
+          const userDoc = querySnapshot.docs[0];
+          const userData: any = userDoc.data();  // Usando any temporariamente
+
+          // Verificar a senha armazenada no Firestore
+          const isPasswordValid = await bcrypt.compare(password, userData.hashedPassword);
+
+          if (isPasswordValid) {
+            const userId = userDoc.id;
+
+            this.storeUserDataInLocalStorage(userId, userData);
+
+            this.setUserId(userId);
+
+            return { user: { uid: userId, ...userData } };
+          } else {
+            throw new Error('Senha incorreta');
+          }
         } else {
-          // Lida com o caso em que o usuário é nulo
-          throw new Error('Usuário nulo após criação');
+          // Usuário não encontrado
+          throw new Error('Usuário não encontrado');
         }
       });
   }
 
-  // Método para autenticar um usuário existente
-  login(email: string, password: string): Promise<any> {
-    return this.auth.signInWithEmailAndPassword(email, password);
-  }
+  async changePassword(email: string, newPassword: string, confirmPassword: string): Promise<void> {
+    if (newPassword !== confirmPassword) {
+      throw new Error('A nova senha e a confirmação de senha não coincidem.');
+    }
 
-  // Novo método para redefinir a senha
-  resetPassword(email: string): Promise<void> {
-    return this.auth.sendPasswordResetEmail(email);
-  }
-  
-  // Método para deslogar um usuário
-  logout(): Promise<void> {
-    return this.auth.signOut();
-  }
+    return this.firestore.collection('users', ref => ref.where('email', '==', email).limit(1)).get().pipe(
+      switchMap((querySnapshot) => {
+        if (querySnapshot.size === 1) {
+          const userDoc = querySnapshot.docs[0];
+          const userId = userDoc.id;
 
-  // Método para obter o estado de autenticação atual
-  getAuthState(): Observable<any> {
-    return this.auth.authState;
-  }
-
-  // DADOS DO USUARIO
-  getUserData(): Observable<any> {
-    return this.auth.authState.pipe(
-      switchMap(user => {
-        if (user) {
-          return this.firestore.collection('users').doc(user.uid).valueChanges();
+          return from(bcrypt.hash(newPassword, 10)).pipe(
+            switchMap((hashedNewPassword) =>
+              this.firestore.collection('users').doc(userId).update({
+                hashedPassword: hashedNewPassword,
+              })
+            ),
+            catchError(() => throwError('Erro ao alterar a senha.'))
+          );
         } else {
-          return of(null);
+          return throwError('Usuário não encontrado.');
         }
       })
-    );
+    ).toPromise();
   }
 
+  getUserData(): Observable<UserData | null> {
+    const userIdToUse = this.userId || ''; // Usa o userId dinâmico ou um valor padrão se não houver
+
+    if (userIdToUse) {
+      const userDocRef = this.firestore.collection('users').doc(userIdToUse);
+
+      return userDocRef.get().pipe(
+        map(userDoc => {
+          if (userDoc.exists) {
+            const userData: any = userDoc.data();
+
+            // Pode ser necessário verificar se 'userData' não é 'undefined' aqui
+            return { uid: userIdToUse, ...userData };
+          } else {
+            // Usuário não encontrado
+            return null;
+          }
+        })
+      );
+    } else {
+      return of(null); // Retorna um Observable nulo se userIdToUse for inválido
+    }
+  }
+
+
+
+
+
+
+
+
+  private storeUserDataInLocalStorage(userId: string, userData: any): void {
+    const userSessionData = { userId, ...userData };
+    localStorage.setItem('userSessionData', JSON.stringify(userSessionData));
+  }
 }
