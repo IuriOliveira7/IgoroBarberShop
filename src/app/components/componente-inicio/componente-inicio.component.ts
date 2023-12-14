@@ -88,8 +88,8 @@ export class ComponenteInicioComponent {
   // LOGIN/CADASTRO
 
   novasenha: string = '';
-  email: string = 'iuriolivera7@gmail.com';
-  senha: string = '123456789';
+  email: string = '';
+  senha: string = '';
   usuario: string = '';
   telefone: string = '';
   confirmasenha: string = '';
