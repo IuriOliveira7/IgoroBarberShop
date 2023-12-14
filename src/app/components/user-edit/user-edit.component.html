@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="button">
-        <button class="button_agendar" (click)="atualizarPerfil()" (click)="atualizarFoto()">
+        <button class="button_agendar" (click)="atualizarPerfil()">
           <span [hidden]="carregando">Atualizar</span>
           <app-loader #loader *ngIf="carregando"></app-loader>
         </button>

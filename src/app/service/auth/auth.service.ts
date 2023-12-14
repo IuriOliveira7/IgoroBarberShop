@@ -156,21 +156,17 @@ export class AuthService {
       const uploadTask: AngularFireUploadTask = this.storage.upload(filePath, photoURL);
   
       // Aguarde a conclusão do upload
-      await uploadTask;
-  
+      const snapshot = await uploadTask;
+      
       // Obtenha a URL da nova foto após o upload
-      const downloadURL = await storageRef.getDownloadURL();
+      const downloadURL = await snapshot.ref.getDownloadURL();
   
       // Atualize a fotoURL no Firestore
       await this.firestore.collection('users').doc(userIdToUse).update({
         photoURL: downloadURL,
       });
   
-      console.log('Foto atualizada com sucesso no Firestore!');
-    } catch (error) {
-      console.error('Erro ao atualizar a foto:', error);
-      throw new Error('Erro ao atualizar a foto.');
-    }
+    } catch (error) {}
   }
 
   getUserData(): Observable<UserData | null> {
