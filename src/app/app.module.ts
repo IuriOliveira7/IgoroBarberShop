@@ -20,6 +20,8 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './service/auth/auth.service';
 import { LoaderComponent } from './components/loader/loader.component';
+import { UserEditComponent } from './components/user-edit/user-edit.component';
+import { PageUserComponent } from './pages/page-user/page-user.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { LoaderComponent } from './components/loader/loader.component';
     TopBarComponent,
     LoaderComponent,
     ConteudoHomeComponent,
-    ComponenteInicioComponent
+    ComponenteInicioComponent,
+    UserEditComponent,
+    PageUserComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,63 @@
+<div class="topo_user">
+
+    <div class="topbar_user">
+        <div class="buttom_voltar">
+            <div [hidden]="!exibirInformacoesUser"><i (click)="voltar()" class='bx bx-left-arrow-alt'></i></div>
+            <!-- voltaruser -->
+            <div [hidden]="exibirInformacoesUser"><i (click)="voltaruser()" class='bx bx-left-arrow-alt'></i></div>
+        </div>
+        <div class="titulo_user">
+            <h3 [hidden]="!exibirInformacoesUser">Meu <span>Perfil</span></h3>
+            <h3 [hidden]="exibirInformacoesUser">Atualização <span>Cadastral</span></h3>
+        </div>
+        <div class="div_vazia"></div>
+    </div>
+
+</div>
+
+<!-- [hidden]="!exibirInformacoesUser" -->
+<div [hidden]="!exibirInformacoesUser">
+    <div class="conteudo_user">
+
+        <div class="informacoes_user">
+
+            <div class="input_foto">
+                <div class="image-preview">
+                    <div class="image-preview">
+                        <img [src]="fotoSelecionada" alt="Preview">
+                    </div>
+                </div>
+            </div>
+
+            <div class="dados_user">
+
+                <div class="sub_dados_user">
+                    <div class="nome_user">
+                        <span>Nome</span>
+                        <p>{{userName}}</p>
+                    </div>
+                    <div class="nome_email">
+                        <span>E-mail</span>
+                        <p>{{email}}</p>
+                    </div>
+                    <div class="nome_phone">
+                        <span>Celular</span>
+                        <p>{{phone}}</p>
+                    </div>
+                </div>
+
+                <div class="button_edit_user" (click)="alternarDivs()">
+                    <img src="../../../assets/img/icon/icon_edit_user.svg" alt="">
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- [hidden]="exibirInformacoesUser" -->
+<div class="user_edit" [hidden]="exibirInformacoesUser">
+    <app-user-edit></app-user-edit>
+</div>

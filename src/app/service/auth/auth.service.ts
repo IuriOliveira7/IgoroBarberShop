@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable, catchError, finalize, from, map, of, switchMap, throwError } from 'rxjs';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/compat/storage';
 import * as bcrypt from 'bcryptjs';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 interface UserData {
   uid: string;
+  email: string;
+  phone: string;
   name: string;
   photoURL: string;
 }
@@ -16,10 +20,14 @@ interface UserData {
 export class AuthService {
 
   private userId: string = '';
+  private inactivityTimeout = 200000; // Tempo limite em milissegundos (10 minutos) 600000
+  private inactivityTimer: any;
 
   constructor(
     private firestore: AngularFirestore,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private toastr: ToastrService,
+    private router: Router
   ) {
     const storedUserSessionData = localStorage.getItem('userSessionData');
     if (storedUserSessionData) {
@@ -119,6 +127,52 @@ export class AuthService {
     ).toPromise();
   }
 
+  async updateProfileWithoutPhoto(email: string, name: string, phone: string): Promise<void> {
+    try {
+      const userIdToUse = this.userId || '';
+  
+      // Atualizar os detalhes no Firestore
+      await this.firestore.collection('users').doc(userIdToUse).update({
+        name: name,
+        phone: phone,
+        email: email,
+        // Remova a linha relacionada à fotoURL se você não deseja atualizar a foto
+      });
+  
+      console.log('Perfil atualizado com sucesso no Firestore!');
+    } catch (error) {
+      console.error('Erro ao atualizar o perfil:', error);
+      throw new Error('Erro ao atualizar o perfil e o email.');
+    }
+  }
+
+  async updatePhoto(photoURL: File): Promise<void> {
+    try {
+      const userIdToUse = this.userId || '';
+  
+      // Upload da nova foto
+      const filePath = `userPhotos/${userIdToUse}`;
+      const storageRef = this.storage.ref(filePath);
+      const uploadTask: AngularFireUploadTask = this.storage.upload(filePath, photoURL);
+  
+      // Aguarde a conclusão do upload
+      await uploadTask;
+  
+      // Obtenha a URL da nova foto após o upload
+      const downloadURL = await storageRef.getDownloadURL();
+  
+      // Atualize a fotoURL no Firestore
+      await this.firestore.collection('users').doc(userIdToUse).update({
+        photoURL: downloadURL,
+      });
+  
+      console.log('Foto atualizada com sucesso no Firestore!');
+    } catch (error) {
+      console.error('Erro ao atualizar a foto:', error);
+      throw new Error('Erro ao atualizar a foto.');
+    }
+  }
+
   getUserData(): Observable<UserData | null> {
     const userIdToUse = this.userId || ''; // Usa o userId dinâmico ou um valor padrão se não houver
 
@@ -143,15 +197,11 @@ export class AuthService {
     }
   }
 
-
-
-
-
-
-
-
   private storeUserDataInLocalStorage(userId: string, userData: any): void {
     const userSessionData = { userId, ...userData };
     localStorage.setItem('userSessionData', JSON.stringify(userSessionData));
   }
+
+
 }
+

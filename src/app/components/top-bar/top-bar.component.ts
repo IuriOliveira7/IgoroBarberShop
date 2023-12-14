@@ -17,12 +17,14 @@ export class TopBarComponent {
 
   ngOnInit(): void {
     this.authService.getUserData().subscribe(user => {
-      // console.log('Dados do Usuário:', user);
       if (user) {
         this.fotoSelecionada = user.photoURL;
-        console.log('FOTO:', this.fotoSelecionada);
       }
     });
+  }
+
+  user() {
+    this.router.navigate(['/user']);
   }
 
   sair() {
