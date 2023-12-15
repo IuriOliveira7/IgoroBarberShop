@@ -34,8 +34,6 @@ export class PageUserComponent {
   exibirInformacoesUser: boolean = true;
   carregando: boolean = false;
 
-  
-  
   alterarEstado(exibirInformacoesUser: boolean): void {
     this.exibirInformacoesUser = exibirInformacoesUser;
   }

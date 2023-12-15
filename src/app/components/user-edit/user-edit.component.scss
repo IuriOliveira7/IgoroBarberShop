@@ -148,3 +148,71 @@
         }
     }
 }
+
+.check_edit_user {
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .icon_check {
+        img {
+            width: 135px;
+            margin-bottom: 1rem;
+        }
+    }
+
+    .titulo_check {
+        font-family: "Inter";
+        color: #fff;
+        font-size: 25px;
+        text-align: center;
+    }
+
+    .texto_check {
+        width: 14rem;
+        margin-top: 1rem;
+
+        p {
+            color: #FFF;
+            text-align: center;
+            font-family: sans-serif;
+        }
+    }
+
+
+    .button {
+        text-align: center;
+        margin-top: 25px;
+
+        .button_agendar {
+            border: none;
+
+            color: #FFF;
+            font-size: 20px;
+            font-weight: bold;
+
+            background: #12AAEB;
+            padding: 0.5rem;
+            width: 117px;
+            height: 68px;
+            border-radius: 12px;
+
+            cursor: pointer;
+        }
+
+        :hover {
+            background: #0d91ca;
+        }
+
+        @media screen and (max-width: 320px) {
+
+            .button_agendar {
+                width: 280px;
+            }
+
+        }
+
+    }
+}

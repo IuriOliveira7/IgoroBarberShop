@@ -22,6 +22,9 @@ import { AuthService } from './service/auth/auth.service';
 import { LoaderComponent } from './components/loader/loader.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { PageUserComponent } from './pages/page-user/page-user.component';
+import { PageAgendaComponent } from './pages/page-agenda/page-agenda.component';
+import { AgendaComponent } from './components/agenda/agenda.component';
+
 
 @NgModule({
   declarations: [
@@ -34,6 +37,8 @@ import { PageUserComponent } from './pages/page-user/page-user.component';
     ComponenteInicioComponent,
     UserEditComponent,
     PageUserComponent,
+    PageAgendaComponent,
+    AgendaComponent,
   ],
   imports: [
     BrowserModule,

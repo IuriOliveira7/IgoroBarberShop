@@ -127,7 +127,7 @@ export class AuthService {
     ).toPromise();
   }
 
-  async updateProfileWithoutPhoto(email: string, name: string, phone: string): Promise<void> {
+  async updateProfile(email: string, name: string, phone: string): Promise<void> {
     try {
       const userIdToUse = this.userId || '';
   

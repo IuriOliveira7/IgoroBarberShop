@@ -1,35 +1,53 @@
-<div class="main_registro" >
-    <div class="registro">
-        <div class="inputs">
-            <div class="input_foto">
-                <div class="image-preview">
-                    <img class="icon_preview" src="../../../assets/img/icon/icon_foto_user.svg" *ngIf="!imageUrl">
-                    <div *ngIf="imageUrl" class="image-preview">
-                        <img [src]="imageUrl" alt="Preview">
+<div [hidden]="!exibirUserEdit">
+    <div class="main_registro" >
+        <div class="registro">
+            <div class="inputs">
+                <div class="input_foto">
+                    <div class="image-preview">
+                        <img class="icon_preview" src="../../../assets/img/icon/icon_foto_user.svg" *ngIf="!imageUrl">
+                        <div *ngIf="imageUrl" class="image-preview">
+                            <img [src]="imageUrl" alt="Preview">
+                        </div>
+                    </div>
+
+                    <div class="image-edit">
+                        <label for="foto"><img src="../../../assets/img/icon/icon_edit.svg" alt=""></label>
+                        <input type="file" id="foto" name="foto" (change)="onFileSelected_cadastro($event)"
+                            style="display: none">
                     </div>
                 </div>
-
-                <div class="image-edit">
-                    <label for="foto"><img src="../../../assets/img/icon/icon_edit.svg" alt=""></label>
-                    <input type="file" id="foto" name="foto" (change)="onFileSelected_cadastro($event)"
-                        style="display: none">
+                <div class="input_user">
+                    <input type="text" name="usuario" [(ngModel)]="name" placeholder="Nome/Sobrenome">
+                </div>
+                <div class="input_user">
+                    <input type="text" name="email" [(ngModel)]="email" placeholder="Email">
+                </div>
+                <div class="input_telefone">
+                    <input type="text" name="telefone"  [(ngModel)]="phone" placeholder="Telefone">
                 </div>
             </div>
-            <div class="input_user">
-                <input type="text" name="usuario" [(ngModel)]="name" placeholder="Nome/Sobrenome">
-            </div>
-            <div class="input_user">
-                <input type="text" name="email" [(ngModel)]="email" placeholder="Email">
-            </div>
-            <div class="input_telefone">
-                <input type="text" name="telefone"  [(ngModel)]="phone" placeholder="Telefone">
-            </div>
+            <div class="button">
+            <button class="button_agendar" (click)="atualizarPerfil()">
+            <span [hidden]="carregando">Atualizar</span>
+            <app-loader #loader *ngIf="carregando"></app-loader>
+            </button>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- MENSAGEM DE SUCESSO PÓS ALTERAÇÃO DO PERFIL -->
+<div [hidden]="exibirUserEdit">
+    <div class="check_edit_user" >
+        <div class="icon_check">
+        <img src="../../../assets/img/icon/icon_check.svg" alt="">
+        </div>
+        <div class="titulo_check">
+        <h3>Perfil Atualizado</h3>
         </div>
         <div class="button">
-        <button class="button_agendar" (click)="atualizarPerfil()">
-          <span [hidden]="carregando">Atualizar</span>
-          <app-loader #loader *ngIf="carregando"></app-loader>
-        </button>
-      </div>
+        <button class="button_agendar" (click)="OK()">OK</button>
+        </div>
     </div>
 </div>

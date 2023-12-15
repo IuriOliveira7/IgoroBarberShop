@@ -28,6 +28,11 @@ export class TopBarComponent {
   }
 
   sair() {
-    this.router.navigate(['/']);
+    // Verifica se o URL atual é '/home' e navega para '/'
+    if (this.router.url === '/home') {
+      this.router.navigate(['/']);
+    } else {
+      this.router.navigate(['/home']);
+    }
   }
 }

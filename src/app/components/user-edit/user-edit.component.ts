@@ -14,6 +14,17 @@ export class UserEditComponent {
   constructor(private router: Router, private toastr: ToastrService, private authService: AuthService) {
   }
 
+  exibirUserEdit: boolean = true;
+
+  alterarEstado(exibirUserEdit: boolean): void {
+    this.exibirUserEdit = exibirUserEdit;
+  }
+
+  alternarDivs(): void {
+    this.alterarEstado(!this.exibirUserEdit);
+  }
+
+
   email: string = '';
   name: string = '';
   phone: string = '';
@@ -30,6 +41,7 @@ export class UserEditComponent {
         this.name = user.name;
         this.email = user.email;
         this.phone = user.phone;
+        console.log('NOME NOVO:', this.name)
       }
     });
   }
@@ -38,12 +50,14 @@ export class UserEditComponent {
     this.carregando = true;
 
     this.atualizarFoto();
-
-    this.authService.updateProfileWithoutPhoto(this.email, this.name, this.phone)
+    
+    this.authService.updateProfile(this.email, this.name, this.phone)
       .then(() => {
-        this.carregando = false;
-
-        this.toastr.success('Perfil atualizado com sucesso!');
+        setTimeout(() => {
+          this.carregando = false;
+          this.alternarDivs();
+        }, 3000);
+        // this.toastr.success('Perfil atualizado com sucesso!');
       })
       .catch((error) => {
         // Tratamento de erros
@@ -60,7 +74,6 @@ export class UserEditComponent {
   }
 
   atualizarFoto() {
-    // Se não houver uma nova foto selecionada ou a foto selecionada for igual à foto existente, não faça nada
     if (!this.fotoSelecionada || this.fotoSelecionada === this.imageUrl) {
       console.log('Nenhuma alteração na foto. A foto existente será mantida.');
       return;
@@ -96,5 +109,9 @@ export class UserEditComponent {
       };
       reader.readAsDataURL(file);
     }
+  }
+
+  OK() {
+    window.location.reload();
   }
 }
