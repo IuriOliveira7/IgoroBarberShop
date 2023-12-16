@@ -5,57 +5,54 @@
 <div class="main_agenda">
 
     <div class="mes_agenda">
-        <p>Out</p>
+        <p>{{ dadosDaSemana.nomeMes }}</p>
     </div>
 
     <div class="dias_agenda">
-
-        <div class="button_left">
+        <div class="button_left" (click)="retrocederSemana()">
             <i class='bx bx-left-arrow-alt'></i>
         </div>
 
         <div class="buttons_dias">
-            <div class="button_dia dia_1">
-                <span>07</span>
-                <p>Sáb.</p>
-            </div>
-
-            <div class="button_dia dia_2">
-                <span>08</span>
-                <p>Dom.</p>
-            </div>
-
-            <div class="button_dia dia_3">
-                <span>09</span>
-                <p>Seg.</p>
-            </div>
-            
-            <div class="button_dia dia_4">
-                <span>10</span>
-                <p>Terç.</p>
-            </div>
-
-            <div class="button_dia dia_5">
-                <span>11</span>
-                <p>Qua.</p>
-            </div>
-
-            <div class="button_dia dia_6">
-                <span>12</span>
-                <p>Qui.</p>
-            </div>
-
-            <div class="button_dia dia_7">
-                <span>13</span>
-                <p>Sex.</p>
+            <div *ngFor="let dia of dadosDaSemana.diasDaSemanaSelecionados" class="button_dia">
+                <span [class.diaAtual]="dia.diaAtual">{{ dia.numero }}</span>
+                <p>{{ dia.diaDaSemana }}</p>
             </div>
         </div>
 
-        <div class="button_right">
+        <div class="button_right" (click)="avancarSemana()">
             <i class='bx bx-right-arrow-alt'></i>
         </div>
     </div>
+
     <div class="horarios_agenda">
 
+        <div class="horarios_main">
+
+            <div class="horario_button">
+                <span>08:00 AM</span>
+            </div>
+
+            <div class="horario_button">
+                <span>08:00 AM</span>
+            </div>
+
+            <div class="horario_button">
+                <span>08:00 AM</span>
+            </div>
+
+            <div class="horario_button">
+                <span>08:00 AM</span>
+            </div>
+
+            <div class="horario_button">
+                <span>08:00 AM</span>
+            </div>
+
+            <div class="horario_button">
+                <span>08:00 AM</span>
+            </div>
+        </div>
     </div>
+
 </div>
