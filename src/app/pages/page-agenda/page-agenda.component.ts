@@ -6,6 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './page-agenda.component.scss'
 })
 export class PageAgendaComponent {
-  mes = '';
-  ano: number | any;
+
 }
